@@ -9,24 +9,40 @@ env/
 venv/
 .venv/
 .ENV
+.ENV.*
 .python-version
-.python-history
+.python_history
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Build artifacts
+build/
+dist/
+*.egg
+*.egg-info/
+*.so
+
+# Logs
+*.log
 
 # Environment variables
 .env
 .env.local
 .env.*
 
-# Logs
-*.log
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.tmp
 
-# Coverage reports
-.coverage
-htmlcov/
-.coverage.*
-.cache
-.tox/
+# OS
+.DS_Store
+Thumbs.db
 
-# Alembic
-alembic/versions/*.pyc
+# Coverage
+coverage/
 ```

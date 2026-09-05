@@ -1,13 +1,3 @@
-Yes. I would now simplify the project **even further** and make the primary success criterion brutally concrete:
-
- > **The system must reliably research relevant technology/AI topics and help produce 5 quality X posts per day, with human approval before publishing.**
-
- One important correction from the earlier design: **“trending on X” should not mean automatically posting about X trending topics.** X's automation rules prohibit automatically posting about X trends or attempting to manipulate trends. We can instead research **fresh technology/AI/software news, tools, launches, papers, hackathons, GitHub projects, engineering discussions, etc.**, then turn those into original commentary.  Help Center
-
- Also, X currently provides an official developer platform/API, so the implementation should use that rather than browser automation.  X Developer Platform
-
- Below is the **single master project specification** I would give Qwen Code. It combines the product requirements, stack, coding-agent rules, architecture, data model, AI behavior, and exactly **5 development phases**.
-
  # AI PERSONAL BRAND ENGINEER
 
  ## Master Project Specification
@@ -2094,6 +2084,4 @@ SCALE
  The ultimate success condition is simple:
 
  > **The system works reliably enough that the user can use it every day to research technology and prepare/publish up to 5 high-quality X posts from their own expertise and relevant current information.**\
->  :::
 
-  Sources

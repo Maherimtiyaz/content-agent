@@ -8,17 +8,16 @@ from fastapi.testclient import TestClient
 
 from app.main import app
 from app.db.base import Base
-from app.db.session import get_db
-from app.core.config import get_settings
+from app.db.session import get_db, engine as app_engine
 
 # Use SQLite in-memory database for tests
 SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
 
-engine = create_engine(
+test_engine = create_engine(
     SQLALCHEMY_DATABASE_URL, 
     connect_args={"check_same_thread": False}
 )
-TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=test_engine)
 
 
 def override_get_db() -> Generator[Session, None, None]:
@@ -30,18 +29,18 @@ def override_get_db() -> Generator[Session, None, None]:
         db.close()
 
 
-@pytest.fixture(scope="session")
-def test_engine():
-    """Create test database engine."""
-    # Create all tables
-    Base.metadata.create_all(bind=engine)
-    yield engine
+@pytest.fixture(scope="session", autouse=True)
+def create_test_tables():
+    """Create all test tables before running tests."""
+    # Create all tables in the test database
+    Base.metadata.create_all(bind=test_engine)
+    yield
     # Drop all tables after tests
-    Base.metadata.drop_all(bind=engine)
+    Base.metadata.drop_all(bind=test_engine)
 
 
 @pytest.fixture(scope="function")
-def db_session(test_engine) -> Generator[Session, None, None]:
+def db_session() -> Generator[Session, None, None]:
     """Create a fresh database session for each test."""
     connection = test_engine.connect()
     transaction = connection.begin()
@@ -57,7 +56,7 @@ def db_session(test_engine) -> Generator[Session, None, None]:
 @pytest.fixture(scope="function")
 def client(db_session) -> Generator[TestClient, None, None]:
     """Create a test client with overridden database dependency."""
-    app.dependency_overrides[get_db] = override_get_db
+    app.dependency_overrides[get_db] = lambda: db_session
     
     with TestClient(app=app) as test_client:
         yield test_client

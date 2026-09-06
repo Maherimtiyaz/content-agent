@@ -1,5 +1,16 @@
 """Test fixtures and configuration."""
 
+import os
+import sys
+
+# MUST set TESTING before any app imports to ensure correct config loading
+os.environ["TESTING"] = "true"
+
+# Clear any cached settings modules
+for mod_name in list(sys.modules.keys()):
+    if 'app.core.config' in mod_name or 'app.main' in mod_name:
+        del sys.modules[mod_name]
+
 import pytest
 from typing import Generator
 from sqlalchemy import create_engine
@@ -8,7 +19,7 @@ from fastapi.testclient import TestClient
 
 from app.main import app
 from app.db.base import Base
-from app.db.session import get_db, engine as app_engine
+from app.db.session import get_db
 
 # Use SQLite in-memory database for tests
 SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
@@ -18,15 +29,6 @@ test_engine = create_engine(
     connect_args={"check_same_thread": False}
 )
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=test_engine)
-
-
-def override_get_db() -> Generator[Session, None, None]:
-    """Override get_db dependency for testing."""
-    db = TestingSessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -56,7 +58,10 @@ def db_session() -> Generator[Session, None, None]:
 @pytest.fixture(scope="function")
 def client(db_session) -> Generator[TestClient, None, None]:
     """Create a test client with overridden database dependency."""
-    app.dependency_overrides[get_db] = lambda: db_session
+    def override_get_db():
+        return db_session
+    
+    app.dependency_overrides[get_db] = override_get_db
     
     with TestClient(app=app) as test_client:
         yield test_client

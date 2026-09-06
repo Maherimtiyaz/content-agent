@@ -1,8 +1,11 @@
 ```
-# Dependencies
-.venv/
-venv/
-node_modules/
+# Database
+*.db
+
+# Environment
+.env
+.env.local
+.env.*
 
 # Python
 __pycache__/
@@ -11,6 +14,8 @@ __pycache__/
 *.pyd
 .Python
 env/
+venv/
+.venv/
 pip-log.txt
 pip-delete-this-directory.txt
 .tox/
@@ -28,47 +33,7 @@ coverage.xml
 .MF
 tags
 TAGS
-ID
-GPATH
-GTAGS
-GSYMS
-GRTAGS
-staticfiles
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
+.IDEAssistant.log
 .DS_Store
-Thumbs.db
-
-# Testing
-.pytest_cache/
-.mypy_cache/
-.hypothesis/
-
-# Environment
-.env
-.env.local
-.env.*
-!.env.example
-
-# Build and distribution
-dist/
-build/
-*.egg-info/
-.eggs/
-
-# Editors
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# OS generated files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
 Thumbs.db
 ```

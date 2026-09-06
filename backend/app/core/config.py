@@ -1,6 +1,7 @@
 import os
 from pydantic_settings import BaseSettings
 from functools import lru_cache
+from typing import Optional
 
 
 class Settings(BaseSettings):
@@ -15,9 +16,10 @@ class Settings(BaseSettings):
     # Database
     database_url: str
 
-    class Config:
-        env_file = ".env"
-        case_sensitive = False
+    model_config = {
+        "env_file": ".env.test" if os.getenv("ENVIRONMENT") == "test" else ".env",
+        "case_sensitive": False,
+    }
 
 
 @lru_cache()

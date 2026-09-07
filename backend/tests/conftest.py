@@ -1,5 +1,16 @@
 """Test fixtures and configuration."""
 
+import os
+import sys
+
+# MUST set TESTING before any app imports to ensure correct config loading
+os.environ["TESTING"] = "true"
+
+# Clear any cached settings modules
+for mod_name in list(sys.modules.keys()):
+    if 'app.core.config' in mod_name or 'app.main' in mod_name:
+        del sys.modules[mod_name]
+
 import pytest
 from typing import Generator
 from sqlalchemy import create_engine

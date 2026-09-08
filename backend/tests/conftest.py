@@ -5,29 +5,42 @@ import sys
 
 # MUST set TESTING before any app imports to ensure correct config loading
 os.environ["TESTING"] = "true"
+os.environ["DATABASE_URL"] = "sqlite:///./test.db"
 
-# Clear any cached settings modules
+# Clear any cached settings modules BEFORE importing app
 for mod_name in list(sys.modules.keys()):
-    if 'app.core.config' in mod_name or 'app.main' in mod_name:
+    if mod_name.startswith('app'):
         del sys.modules[mod_name]
 
 import pytest
 from typing import Generator
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, event
 from sqlalchemy.orm import sessionmaker, Session
 from fastapi.testclient import TestClient
 
+# Import models FIRST to register them with Base metadata
+from app.models import Base  # This imports all models and registers them
+
+# Now import app modules after models are registered
 from app.main import app
-from app.db.base import Base
 from app.db.session import get_db
 
 # Use SQLite in-memory database for tests
 SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
 
+# Enable foreign keys for SQLite
 test_engine = create_engine(
     SQLALCHEMY_DATABASE_URL, 
     connect_args={"check_same_thread": False}
 )
+
+@event.listens_for(test_engine, "connect")
+def set_sqlite_pragma(dbapi_connection, connection_record):
+    """Enable foreign key support in SQLite."""
+    cursor = dbapi_connection.cursor()
+    cursor.execute("PRAGMA foreign_keys=ON")
+    cursor.close()
+
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=test_engine)
 
 
@@ -59,11 +72,14 @@ def db_session() -> Generator[Session, None, None]:
 def client(db_session) -> Generator[TestClient, None, None]:
     """Create a test client with overridden database dependency."""
     def override_get_db():
-        return db_session
+        try:
+            yield db_session
+        finally:
+            pass
     
     app.dependency_overrides[get_db] = override_get_db
     
-    with TestClient(app=app) as test_client:
+    with TestClient(app=app, base_url="http://testserver") as test_client:
         yield test_client
     
     app.dependency_overrides.clear()

@@ -9,16 +9,17 @@ class Settings(BaseSettings):
 
     # Application
     app_name: str = "brand_engineer"
-    app_secret_key: str
+    app_secret_key: str = "test-secret-key-for-testing-only"
     log_level: str = "INFO"
     environment: str = "development"
 
     # Database
-    database_url: str
+    database_url: str = "sqlite:///./test.db"
 
     model_config = {
         "env_file": ".env.test" if os.getenv("ENVIRONMENT") == "test" or os.getenv("TESTING") == "true" else ".env",
         "case_sensitive": False,
+        "extra": "ignore",  # Ignore extra fields in env file
     }
 
 

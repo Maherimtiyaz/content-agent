@@ -1,39 +1,37 @@
 ```
-# Database
-*.db
-
-# Environment
-.env
-.env.local
-.env.*
-
-# Python
+# Dependencies
+.venv/
+venv/
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-.Python
-env/
-venv/
-.venv/
-pip-log.txt
-pip-delete-this-directory.txt
-.tox/
+
+# Build and distribution artifacts
+build/
+dist/
+*.egg-info/
+
+# Testing
+.pytest_cache/
 .coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
+coverage/
+
+# Environment
+.env
+.env.local
+*.env.*
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
 *.log
-*.pot
-*.pyc
-*.pyo
-*.pyd
-.MF
-tags
-TAGS
-.IDEAssistant.log
+
+# OS
 .DS_Store
 Thumbs.db
 ```

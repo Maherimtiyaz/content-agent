@@ -1,4 +1,12 @@
 ```
+# Database
+test.db
+
+# Environment
+.env
+.env.local
+*.env.*
+
 # Dependencies
 .venv/
 venv/
@@ -7,31 +15,17 @@ __pycache__/
 *.pyo
 *.pyd
 
-# Build and distribution artifacts
-build/
-dist/
-*.egg-info/
-
-# Testing
-.pytest_cache/
-.coverage
-coverage/
-
-# Environment
-.env
-.env.local
-*.env.*
+# Logs and temp files
+*.log
+*.tmp
+*.swp
 
 # Editors
 .vscode/
 .idea/
-*.swp
-*.swo
 
-# Logs
-*.log
-
-# OS
-.DS_Store
-Thumbs.db
+# Build artifacts
+dist/
+build/
+target/
 ```

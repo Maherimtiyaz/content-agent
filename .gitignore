@@ -1,31 +1,42 @@
 ```
-# Database
-test.db
-
-# Environment
-.env
-.env.local
-*.env.*
-
-# Dependencies
-.venv/
-venv/
+# Python
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-
-# Logs and temp files
+.Python
+env/
+venv/
+.venv/
+.ENV
+.venv.bak/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
 *.log
-*.tmp
-*.swp
+.pytest_cache/
+.mypy_cache/
 
-# Editors
-.vscode/
-.idea/
+# Database
+*.db
+*.db-journal
+
+# Alembic
+alembic/
+
+# Local development
+.env
+.env.local
+*.env.*
 
 # Build artifacts
-dist/
 build/
-target/
+dist/
+*.egg-info/
 ```

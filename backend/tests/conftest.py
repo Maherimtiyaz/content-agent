@@ -57,6 +57,9 @@ def create_test_tables():
 @pytest.fixture(scope="function")
 def db_session() -> Generator[Session, None, None]:
     """Create a fresh database session for each test."""
+    # Create tables for this test
+    Base.metadata.create_all(bind=test_engine)
+    
     connection = test_engine.connect()
     transaction = connection.begin()
     session = TestingSessionLocal(bind=connection)
@@ -66,6 +69,17 @@ def db_session() -> Generator[Session, None, None]:
     session.close()
     transaction.rollback()
     connection.close()
+    
+    # Drop tables after test
+    Base.metadata.drop_all(bind=test_engine)
+
+
+@pytest.fixture(scope="function", autouse=True)
+def _setup_test_db():
+    """Ensure database tables exist before any test fixtures run."""
+    Base.metadata.create_all(bind=test_engine)
+    yield
+    Base.metadata.drop_all(bind=test_engine)
 
 
 @pytest.fixture(scope="function")

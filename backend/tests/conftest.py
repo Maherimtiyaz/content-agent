@@ -7,9 +7,10 @@ import sys
 os.environ["TESTING"] = "true"
 os.environ["DATABASE_URL"] = "sqlite:///./test.db"
 
-# Clear any cached settings modules BEFORE importing app
+# Clear ANY cached app modules IMMEDIATELY - before any other imports
+# This is critical because pytest may have already imported some app modules
 for mod_name in list(sys.modules.keys()):
-    if mod_name.startswith('app'):
+    if 'app' in mod_name or 'pydantic_settings' in mod_name:
         del sys.modules[mod_name]
 
 import pytest
@@ -27,6 +28,10 @@ from app.db.session import get_db
 
 # Use SQLite in-memory database for tests
 SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
+
+# Remove existing test.db to start fresh
+if os.path.exists("test.db"):
+    os.remove("test.db")
 
 # Enable foreign keys for SQLite
 test_engine = create_engine(
@@ -47,7 +52,7 @@ TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=test_
 @pytest.fixture(scope="session", autouse=True)
 def create_test_tables():
     """Create all test tables before running tests."""
-    # Create all tables in the test database
+    # Create all tables in the test database ONCE at session start
     Base.metadata.create_all(bind=test_engine)
     yield
     # Drop all tables after tests
@@ -56,8 +61,8 @@ def create_test_tables():
 
 @pytest.fixture(scope="function")
 def db_session() -> Generator[Session, None, None]:
-    """Create a fresh database session for each test."""
-    # Create tables for this test
+    """Create a fresh database session for each test with proper transaction handling."""
+    # Ensure tables exist
     Base.metadata.create_all(bind=test_engine)
     
     connection = test_engine.connect()
@@ -69,9 +74,6 @@ def db_session() -> Generator[Session, None, None]:
     session.close()
     transaction.rollback()
     connection.close()
-    
-    # Drop tables after test
-    Base.metadata.drop_all(bind=test_engine)
 
 
 @pytest.fixture(scope="function", autouse=True)
@@ -79,12 +81,15 @@ def _setup_test_db():
     """Ensure database tables exist before any test fixtures run."""
     Base.metadata.create_all(bind=test_engine)
     yield
-    Base.metadata.drop_all(bind=test_engine)
+    # Don't drop tables here - let session fixture handle cleanup
 
 
 @pytest.fixture(scope="function")
 def client(db_session) -> Generator[TestClient, None, None]:
     """Create a test client with overridden database dependency."""
+    # Ensure tables are created before any API calls
+    Base.metadata.create_all(bind=test_engine)
+    
     def override_get_db():
         try:
             yield db_session

@@ -4,6 +4,9 @@ from app.db.base import Base
 from .user import User
 from .brand_profile import BrandProfile, ContentPillar
 from .knowledge_item import KnowledgeItem
+from .content_idea import ContentIdea
+from .content_draft import ContentDraft, DraftState
+from .quality_check import QualityCheck
 
 __all__ = [
     "Base",
@@ -11,4 +14,8 @@ __all__ = [
     "BrandProfile",
     "ContentPillar",
     "KnowledgeItem",
+    "ContentIdea",
+    "ContentDraft",
+    "DraftState",
+    "QualityCheck",
 ]

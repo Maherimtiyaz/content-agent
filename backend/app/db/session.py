@@ -8,7 +8,7 @@ from app.core.config import get_settings
 
 settings = get_settings()
 
-# Use SQLite for testing if TEST_MODE is set
+# Use SQLite for testing if environment is test
 if settings.environment == "test":
     SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
     engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})

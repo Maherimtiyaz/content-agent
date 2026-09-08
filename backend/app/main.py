@@ -8,6 +8,7 @@ from app.core.logging_config import setup_logging
 from app.api.routes.health import router as health_router
 from app.api.routes.v1.brand_profiles import router as brand_profiles_router
 from app.api.routes.v1.knowledge_items import router as knowledge_items_router
+from app.api.routes.content_drafts import router as content_drafts_router
 
 # Setup logging
 setup_logging()
@@ -35,6 +36,7 @@ app.add_middleware(
 app.include_router(health_router, prefix="/api")
 app.include_router(brand_profiles_router, prefix="/api/v1")
 app.include_router(knowledge_items_router, prefix="/api/v1")
+app.include_router(content_drafts_router, prefix="/api/v1")
 
 
 @app.get("/")

@@ -17,7 +17,7 @@ class Settings(BaseSettings):
     database_url: str
 
     model_config = {
-        "env_file": ".env.test" if os.getenv("ENVIRONMENT") == "test" else ".env",
+        "env_file": ".env.test" if os.getenv("ENVIRONMENT") == "test" or os.getenv("TESTING") == "true" else ".env",
         "case_sensitive": False,
     }
 

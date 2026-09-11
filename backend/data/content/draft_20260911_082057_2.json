@@ -1,0 +1,88 @@
+{
+  "idea": {
+    "title": "Building RAG Systems: Lessons from RAG Performance Optimization Techniques",
+    "hook": "Here's what I learned implementing rag in production...",
+    "angle": "Practical implementation lessons with concrete examples",
+    "content_pillar": "AI engineering",
+    "supporting_knowledge": [],
+    "supporting_research": [
+      "https://arxiv.org/example/rag-opt"
+    ],
+    "confidence": 0.88,
+    "format": "technical_explanation",
+    "why_now": "Recent developments in RAG make this timely",
+    "why_fits_brand": "Aligns with your focus on RAG and AI engineering",
+    "sources": [
+      {
+        "title": "RAG Performance Optimization Techniques",
+        "source": "Research Paper",
+        "source_type": "paper",
+        "url": "https://arxiv.org/example/rag-opt",
+        "published_date": "2024-01-12",
+        "summary": "Novel approaches to improving retrieval-augmented generation latency and accuracy.",
+        "topics": [
+          "RAG",
+          "LLMs",
+          "performance"
+        ],
+        "relevance_score": 0.88,
+        "brand_fit_score": 0.82,
+        "content_potential": "high",
+        "discovered_at": "2026-09-11T08:20:57.774736",
+        "queried_topic": "LLMs",
+        "key_points": [],
+        "credibility_score": 0.5,
+        "novelty_score": 0.5,
+        "technical_depth": "medium"
+      }
+    ]
+  },
+  "draft": {
+    "title": "Building RAG Systems: Lessons from RAG Performance Optimization Techniques",
+    "content": "Here's what I learned implementing rag in production...\n\nHere's a technical breakdown of building rag systems: lessons from rag performance optimization techniques:\n\n**The Problem**\nTraditional approaches struggle with scalability and maintainability.\n\n**The Solution**\nA layered architecture with clear separation of concerns:\n\n```python\n# Simplified example\nclass System:\n    def __init__(self):\n        self.core = CoreLogic()\n        self.adapter = ExternalAdapter()\n    \n    def process(self, input_data):\n        validated = self.core.validate(input_data)\n        return self.adapter.execute(validated)\n```\n\n**Key Takeaways**\n- Abstraction enables flexibility\n- Testing each layer independently catches issues early\n- Clear interfaces make onboarding easier",
+    "format": "technical_explanation",
+    "word_count": 84,
+    "character_count": 763,
+    "quality_check": {
+      "passed": true,
+      "score": 100,
+      "warnings": [],
+      "errors": [],
+      "metrics": {
+        "word_count": 84,
+        "character_count": 763,
+        "hashtag_count": 1
+      }
+    },
+    "sources": [
+      {
+        "title": "RAG Performance Optimization Techniques",
+        "source": "Research Paper",
+        "source_type": "paper",
+        "url": "https://arxiv.org/example/rag-opt",
+        "published_date": "2024-01-12",
+        "summary": "Novel approaches to improving retrieval-augmented generation latency and accuracy.",
+        "topics": [
+          "RAG",
+          "LLMs",
+          "performance"
+        ],
+        "relevance_score": 0.88,
+        "brand_fit_score": 0.82,
+        "content_potential": "high",
+        "discovered_at": "2026-09-11T08:20:57.774736",
+        "queried_topic": "LLMs",
+        "key_points": [],
+        "credibility_score": 0.5,
+        "novelty_score": 0.5,
+        "technical_depth": "medium"
+      }
+    ],
+    "provenance": {
+      "idea_title": "Building RAG Systems: Lessons from RAG Performance Optimization Techniques",
+      "research_count": 1
+    }
+  },
+  "generated_at": "20260911_082057",
+  "status": "draft"
+}

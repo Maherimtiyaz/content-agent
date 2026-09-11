@@ -1,0 +1,90 @@
+{
+  "idea": {
+    "title": "Building AI agents Systems: Lessons from Best Practices for AI Agent Architecture",
+    "hook": "Here's what I learned implementing ai agents in production...",
+    "angle": "Practical implementation lessons with concrete examples",
+    "content_pillar": "AI engineering",
+    "supporting_knowledge": [],
+    "supporting_research": [
+      "https://example.com/agent-architecture"
+    ],
+    "confidence": 0.92,
+    "format": "lesson_learned",
+    "why_now": "Recent developments in AI agents make this timely",
+    "why_fits_brand": "Aligns with your focus on AI agents and AI engineering",
+    "sources": [
+      {
+        "title": "Best Practices for AI Agent Architecture",
+        "source": "Engineering Blog",
+        "source_type": "technical_blog",
+        "url": "https://example.com/agent-architecture",
+        "published_date": "2024-01-14",
+        "summary": "Key patterns and anti-patterns in designing AI agent systems for production.",
+        "topics": [
+          "AI agents",
+          "software architecture",
+          "AI engineering"
+        ],
+        "relevance_score": 0.92,
+        "brand_fit_score": 0.88,
+        "content_potential": "high",
+        "discovered_at": "2026-09-11T08:20:57.774719",
+        "queried_topic": "AI engineering",
+        "key_points": [],
+        "credibility_score": 0.5,
+        "novelty_score": 0.5,
+        "technical_depth": "medium"
+      }
+    ]
+  },
+  "draft": {
+    "title": "Building AI agents Systems: Lessons from Best Practices for AI Agent Architecture",
+    "content": "Here's what I learned implementing ai agents in production...\n\nAfter implementing building ai agents systems: lessons from best practices for ai agent architecture, here are the key lessons:\n\n**1. Start with the simplest solution**\nThe temptation is to over-engineer from day one. Resist it.\n\n**2. Measure everything**\nYou can't improve what you don't measure. Set up observability early.\n\n**3. Document decisions**\nFuture you will thank present you for writing down why choices were made.\n\n**4. Iterate based on feedback**\nNo design survives first contact with production. Plan to evolve.\n\nThis approach has saved me countless hours of rework.",
+    "format": "lesson_learned",
+    "word_count": 98,
+    "character_count": 644,
+    "quality_check": {
+      "passed": true,
+      "score": 85,
+      "warnings": [
+        "Technical post might benefit from code examples"
+      ],
+      "errors": [],
+      "metrics": {
+        "word_count": 98,
+        "character_count": 644,
+        "hashtag_count": 0
+      }
+    },
+    "sources": [
+      {
+        "title": "Best Practices for AI Agent Architecture",
+        "source": "Engineering Blog",
+        "source_type": "technical_blog",
+        "url": "https://example.com/agent-architecture",
+        "published_date": "2024-01-14",
+        "summary": "Key patterns and anti-patterns in designing AI agent systems for production.",
+        "topics": [
+          "AI agents",
+          "software architecture",
+          "AI engineering"
+        ],
+        "relevance_score": 0.92,
+        "brand_fit_score": 0.88,
+        "content_potential": "high",
+        "discovered_at": "2026-09-11T08:20:57.774719",
+        "queried_topic": "AI engineering",
+        "key_points": [],
+        "credibility_score": 0.5,
+        "novelty_score": 0.5,
+        "technical_depth": "medium"
+      }
+    ],
+    "provenance": {
+      "idea_title": "Building AI agents Systems: Lessons from Best Practices for AI Agent Architecture",
+      "research_count": 1
+    }
+  },
+  "generated_at": "20260911_082057",
+  "status": "draft"
+}

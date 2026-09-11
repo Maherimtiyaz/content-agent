@@ -27,7 +27,7 @@ class TestBrandProfileCreation:
         assert response.status_code == 201
         data = response.json()
         assert data["name"] == "My Brand"
-        assert data["user_id"] == test_user.id
+        assert data["user_id"] == test_user["id"]
         assert "id" in data
         assert "created_at" in data
 

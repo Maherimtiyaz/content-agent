@@ -1,0 +1,33 @@
+{
+  "role": "AI Engineer",
+  "name": "",
+  "bio": "Building AI systems and developer tools",
+  "interests": [
+    "AI engineering",
+    "LLMs",
+    "AI agents",
+    "RAG",
+    "MCP",
+    "backend engineering",
+    "developer tools"
+  ],
+  "content_pillars": [
+    "AI engineering",
+    "software engineering",
+    "building in public",
+    "technical tutorials"
+  ],
+  "audience": [
+    "software engineers",
+    "AI engineers",
+    "developers"
+  ],
+  "tone": "professional but approachable",
+  "style_notes": "concise, technical, example-driven",
+  "topics_to_avoid": [
+    "hype",
+    "motivational fluff",
+    "engagement bait"
+  ],
+  "goals": "Share engineering insights and help other developers learn"
+}

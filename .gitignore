@@ -1,32 +1,4 @@
 ```
-# Test and cache files
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.pytest_cache/
-.coverage
-coverage/
-htmlcov/
-
-# Dependencies
-.venv/
-venv/
-.env
-.env.local
-*.env.*
-
-# Logs
-*.log
-
-# Editors
-.vscode/
-.idea/
-*.swp
-*.swo
-*.tmp
-
-# OS
-.DS_Store
-Thumbs.db
+# Data files
+backend/data/
 ```

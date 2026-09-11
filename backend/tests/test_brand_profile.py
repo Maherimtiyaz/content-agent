@@ -8,10 +8,10 @@ from sqlalchemy.orm import Session
 class TestBrandProfileCreation:
     """Test brand profile creation."""
     
-    def test_create_brand_profile(self, client: TestClient, test_user, db_session: Session):
+    def test_create_brand_profile(self, client: TestClient, test_user: dict, db_session: Session):
         """Test creating a new brand profile."""
         payload = {
-            "user_id": test_user.id,
+            "user_id": test_user["id"],
             "name": "My Brand",
             "professional_description": "Senior Software Engineer",
             "experience": "10 years in tech",

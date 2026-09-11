@@ -10,7 +10,7 @@ os.environ["DATABASE_URL"] = "sqlite:///./test.db"
 # Clear ANY cached app modules IMMEDIATELY - before any other imports
 # This is critical because pytest may have already imported some app modules
 for mod_name in list(sys.modules.keys()):
-    if 'app' in mod_name or 'pydantic_settings' in mod_name:
+    if mod_name.startswith('app') or 'pydantic_settings' in mod_name:
         del sys.modules[mod_name]
 
 import pytest
@@ -76,7 +76,7 @@ def db_session() -> Generator[Session, None, None]:
     connection.close()
 
 
-@pytest.fixture(scope="function", autouse=True)
+@pytest.fixture(scope="session", autouse=True)
 def _setup_test_db():
     """Ensure database tables exist before any test fixtures run."""
     Base.metadata.create_all(bind=test_engine)
@@ -85,14 +85,21 @@ def _setup_test_db():
 
 
 @pytest.fixture(scope="function")
-def client(db_session) -> Generator[TestClient, None, None]:
-    """Create a test client with overridden database dependency."""
-    # Ensure tables are created before any API calls
-    Base.metadata.create_all(bind=test_engine)
+def client() -> Generator[TestClient, None, None]:
+    """Create a test client with overridden database dependency.
+    
+    This fixture creates its own session and manages the full lifecycle.
+    Tests that need pre-existing data should use the test_user, test_brand_profile,
+    etc. fixtures which will use the same session through the db override.
+    """
+    # Create a fresh session for this test with proper transaction isolation
+    connection = test_engine.connect()
+    transaction = connection.begin()
+    session = TestingSessionLocal(bind=connection)
     
     def override_get_db():
         try:
-            yield db_session
+            yield session
         finally:
             pass
     
@@ -102,32 +109,45 @@ def client(db_session) -> Generator[TestClient, None, None]:
         yield test_client
     
     app.dependency_overrides.clear()
+    session.close()
+    transaction.rollback()
+    connection.close()
 
 
 @pytest.fixture
-def test_user(db_session: Session):
-    """Create a test user."""
+def test_user(client: TestClient) -> dict:
+    """Create a test user directly in the database.
+    
+    Uses the client's database session to ensure consistency.
+    Returns the user data as a dict.
+    """
     from app.models.user import User
+    
+    # Get the session from the app's dependency override
+    db = next(app.dependency_overrides[get_db]())
     
     user = User(
         email="test@example.com",
         name="Test User",
         is_active=True,
     )
-    db_session.add(user)
-    db_session.commit()
-    db_session.refresh(user)
+    db.add(user)
+    db.commit()
+    db.refresh(user)
     
-    return user
+    return {"id": user.id, "email": user.email, "name": user.name}
 
 
 @pytest.fixture
-def test_brand_profile(db_session: Session, test_user):
+def test_brand_profile(client: TestClient, test_user: dict):
     """Create a test brand profile."""
     from app.models.brand_profile import BrandProfile
     
+    # Get the session from the app's dependency override
+    db = next(app.dependency_overrides[get_db]())
+    
     profile = BrandProfile(
-        user_id=test_user.id,
+        user_id=test_user["id"],
         name="Test Brand",
         professional_description="Software Engineer specializing in AI",
         experience="5 years building distributed systems",
@@ -137,27 +157,30 @@ def test_brand_profile(db_session: Session, test_user):
         writing_style="Technical but accessible",
         tone="Professional and friendly",
     )
-    db_session.add(profile)
-    db_session.commit()
-    db_session.refresh(profile)
+    db.add(profile)
+    db.commit()
+    db.refresh(profile)
     
     return profile
 
 
 @pytest.fixture
-def test_knowledge_item(db_session: Session, test_user):
+def test_knowledge_item(client: TestClient, test_user: dict):
     """Create a test knowledge item."""
     from app.models.knowledge_item import KnowledgeItem, KnowledgeType
     
+    # Get the session from the app's dependency override
+    db = next(app.dependency_overrides[get_db]())
+    
     item = KnowledgeItem(
-        user_id=test_user.id,
+        user_id=test_user["id"],
         title="Building FastAPI Applications",
         content="# FastAPI Best Practices\n\nHere are some lessons learned...",
         knowledge_type=KnowledgeType.LESSON,
         tags="fastapi, python, api",
     )
-    db_session.add(item)
-    db_session.commit()
-    db_session.refresh(item)
+    db.add(item)
+    db.commit()
+    db.refresh(item)
     
     return item

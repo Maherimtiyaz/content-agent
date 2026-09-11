@@ -92,26 +92,27 @@ def client() -> Generator[TestClient, None, None]:
     Tests that need pre-existing data should use the test_user, test_brand_profile,
     etc. fixtures which will use the same session through the db override.
     """
-    # Create a fresh session for this test with proper transaction isolation
-    connection = test_engine.connect()
-    transaction = connection.begin()
-    session = TestingSessionLocal(bind=connection)
+    # Create a SINGLE shared session for this test
+    # All fixtures (test_user, etc.) and API requests must use this same session
+    shared_session = TestingSessionLocal()
     
     def override_get_db():
+        # Always yield the SAME session instance
         try:
-            yield session
+            yield shared_session
         finally:
             pass
     
     app.dependency_overrides[get_db] = override_get_db
     
+    # Ensure tables exist
+    Base.metadata.create_all(bind=test_engine)
+    
     with TestClient(app=app, base_url="http://testserver") as test_client:
         yield test_client
     
     app.dependency_overrides.clear()
-    session.close()
-    transaction.rollback()
-    connection.close()
+    shared_session.close()
 
 
 @pytest.fixture
@@ -125,6 +126,11 @@ def test_user(client: TestClient) -> dict:
     
     # Get the session from the app's dependency override
     db = next(app.dependency_overrides[get_db]())
+    
+    # Check if user already exists (from previous test in same session)
+    existing_user = db.query(User).filter(User.email == "test@example.com").first()
+    if existing_user:
+        return {"id": existing_user.id, "email": existing_user.email, "name": existing_user.name}
     
     user = User(
         email="test@example.com",

@@ -1,0 +1,123 @@
+{
+  "timestamp": "20260911_082110",
+  "topics": [
+    "AI engineering",
+    "LLMs",
+    "AI agents",
+    "RAG",
+    "MCP"
+  ],
+  "items": [
+    {
+      "title": "Best Practices for AI Agent Architecture",
+      "source": "Engineering Blog",
+      "source_type": "technical_blog",
+      "url": "https://example.com/agent-architecture",
+      "published_date": "2024-01-14",
+      "summary": "Key patterns and anti-patterns in designing AI agent systems for production.",
+      "topics": [
+        "AI agents",
+        "software architecture",
+        "AI engineering"
+      ],
+      "relevance_score": 0.92,
+      "brand_fit_score": 0.88,
+      "content_potential": "high",
+      "discovered_at": "2026-09-11T08:21:10.481089",
+      "queried_topic": "AI engineering",
+      "key_points": [],
+      "credibility_score": 0.5,
+      "novelty_score": 0.5,
+      "technical_depth": "medium"
+    },
+    {
+      "title": "RAG Performance Optimization Techniques",
+      "source": "Research Paper",
+      "source_type": "paper",
+      "url": "https://arxiv.org/example/rag-opt",
+      "published_date": "2024-01-12",
+      "summary": "Novel approaches to improving retrieval-augmented generation latency and accuracy.",
+      "topics": [
+        "RAG",
+        "LLMs",
+        "performance"
+      ],
+      "relevance_score": 0.88,
+      "brand_fit_score": 0.82,
+      "content_potential": "high",
+      "discovered_at": "2026-09-11T08:21:10.481107",
+      "queried_topic": "LLMs",
+      "key_points": [],
+      "credibility_score": 0.5,
+      "novelty_score": 0.5,
+      "technical_depth": "medium"
+    },
+    {
+      "title": "New LLM Framework Released",
+      "source": "Tech Blog",
+      "source_type": "blog",
+      "url": "https://example.com/llm-framework",
+      "published_date": "2024-01-15",
+      "summary": "A new framework for building LLM applications has been released with improved RAG capabilities.",
+      "topics": [
+        "LLMs",
+        "AI engineering",
+        "RAG"
+      ],
+      "relevance_score": 0.85,
+      "brand_fit_score": 0.8,
+      "content_potential": "high",
+      "discovered_at": "2026-09-11T08:21:10.481076",
+      "queried_topic": "AI engineering",
+      "key_points": [],
+      "credibility_score": 0.5,
+      "novelty_score": 0.5,
+      "technical_depth": "medium"
+    },
+    {
+      "title": "MCP Protocol Gains Traction",
+      "source": "GitHub Trends",
+      "source_type": "github",
+      "url": "https://github.com/example/mcp",
+      "published_date": "2024-01-13",
+      "summary": "Model Context Protocol sees rapid adoption among AI tool builders.",
+      "topics": [
+        "MCP",
+        "AI tools",
+        "developer tools"
+      ],
+      "relevance_score": 0.78,
+      "brand_fit_score": 0.75,
+      "content_potential": "medium",
+      "discovered_at": "2026-09-11T08:21:10.481092",
+      "queried_topic": "AI engineering",
+      "key_points": [],
+      "credibility_score": 0.5,
+      "novelty_score": 0.5,
+      "technical_depth": "medium"
+    },
+    {
+      "title": "Backend Engineering Trends 2024",
+      "source": "Industry Report",
+      "source_type": "report",
+      "url": "https://example.com/backend-trends",
+      "published_date": "2024-01-10",
+      "summary": "Survey of backend engineering practices and emerging technologies.",
+      "topics": [
+        "backend engineering",
+        "developer tools",
+        "trends"
+      ],
+      "relevance_score": 0.72,
+      "brand_fit_score": 0.7,
+      "content_potential": "medium",
+      "discovered_at": "2026-09-11T08:21:10.481096",
+      "queried_topic": "AI engineering",
+      "key_points": [],
+      "credibility_score": 0.5,
+      "novelty_score": 0.5,
+      "technical_depth": "medium"
+    }
+  ],
+  "count": 5
+}

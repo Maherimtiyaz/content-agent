@@ -1,58 +1,134 @@
-*.db
-.coverage
-htmlcov/
-.coverage.*
-.cache
-.pytest_cache/
+# Dependencies
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-.Python
-env/
-venv/
-.venv/
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+.coverage.*
+
+# Environment
 .env
 .env.local
-.env.*
-.DS_Store
-Thumbs.db
+*.env.*
+
+# Editors
 .vscode/
 .idea/
-*.log
-*.tmp
 *.swp
 *.swo
-node_modules/
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Build artifacts
 dist/
 build/
-target/
-.mypy_cache/
-.hypothesis/
-.pytest_cache/
-.tox/
-.coverage*
-htmlcov/
-.nox/
 *.egg-info/
-.eggs/
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Coverage reports
+coverage.xml
+*.cover
+.hypothesis/
+
+# Temporary files
+*.tmp
+*~
+.DS_Store
+._*
+
+# Local configuration
+.settings/
+nbproject/
+
+# Python specific
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.sqlite3
+*.db
+
+# IDE
+.vs/
+*.sublime-project
+*.sublime-workspace
+
+# Documentation builds
+docs/_build/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# mypy
+.mypy_cache/
+
+# tox
+.tox/
+
+# pip
 pip-log.txt
 pip-delete-this-directory.txt
+
+# Coverage
 .coverage.*
-.pytest_cache/
-.hypothesis/
+coverage.xml
+
+# Unit test / coverage reports
+htmlcov/
 .tox/
-nox/
-*.log
-*~
-.#*
-.DS_Store
-Thumbs.db
-.vscode/
-.idea/
-*.tmp
-*.swp
-*.swo
-.env
-.env.local
-.env.*
+.nox/
+.coverage
+.coverage.*
+
+# Transient / Generated PDB files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*-info
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test output
+nosetests.xml
+
+# End of .gitignore

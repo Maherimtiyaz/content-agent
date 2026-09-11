@@ -1,6 +1,6 @@
 """Knowledge Item schemas."""
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 from typing import Optional, List
 from datetime import datetime
 from enum import Enum
@@ -49,3 +49,11 @@ class KnowledgeItemRead(KnowledgeItemBase):
 
     class Config:
         from_attributes = True
+
+    @field_validator('tags', mode='before')
+    @classmethod
+    def parse_tags(cls, value):
+        """Convert comma-separated string to list if needed."""
+        if isinstance(value, str):
+            return [tag.strip() for tag in value.split(',') if tag.strip()]
+        return value

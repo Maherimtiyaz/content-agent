@@ -12,7 +12,7 @@ class TestKnowledgeItemCreation:
     def test_create_knowledge_item(self, client: TestClient, test_user):
         """Test creating a new knowledge item."""
         payload = {
-            "user_id": test_user.id,
+            "user_id": test_user["id"],
             "title": "My First Lesson",
             "content": "# Lesson Content\n\nThis is what I learned...",
             "knowledge_type": "lesson",
@@ -24,7 +24,7 @@ class TestKnowledgeItemCreation:
         assert response.status_code == 201
         data = response.json()
         assert data["title"] == "My First Lesson"
-        assert data["user_id"] == test_user.id
+        assert data["user_id"] == test_user["id"]
         assert data["knowledge_type"] == "lesson"
         assert "id" in data
 
@@ -93,11 +93,11 @@ class TestKnowledgeItemList:
     
     def test_list_knowledge_items_by_user(self, client: TestClient, test_user, test_knowledge_item):
         """Test filtering knowledge items by user ID."""
-        response = client.get(f"/api/v1/knowledge-items?user_id={test_user.id}")
+        response = client.get(f"/api/v1/knowledge-items?user_id={test_user['id']}")
         
         assert response.status_code == 200
         data = response.json()
-        assert all(item["user_id"] == test_user.id for item in data)
+        assert all(item["user_id"] == test_user["id"] for item in data)
     
     def test_list_knowledge_items_by_type(self, client: TestClient, test_knowledge_item):
         """Test filtering knowledge items by type."""

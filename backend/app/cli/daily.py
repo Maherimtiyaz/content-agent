@@ -164,10 +164,10 @@ def run(
             ))
         
         console.print(f"\n[green]✓ Daily workflow complete![/green]")
-        console.print(f"\n[dim]Next steps:")
-        console.print(f"  • Review drafts: [bold]brand-engineer history -t drafts[/bold]")
-        console.print(f"  • Learn from published posts: [bold]brand-engineer learn post[/bold]")
-        console.print(f"  • Run again tomorrow: [bold]brand-engineer daily[/bold][/dim]")
+        console.print("\n[dim]Next steps:[/dim]")
+        console.print("  • Review drafts: [bold]brand-engineer history -t drafts[/bold]")
+        console.print("  • Learn from published posts: [bold]brand-engineer learn post[/bold]")
+        console.print("  • Run again tomorrow: [bold]brand-engineer daily run[/bold]")
     else:
         console.print("[yellow]⚠ No ideas generated. Try different profile interests or research topics.[/yellow]")
 

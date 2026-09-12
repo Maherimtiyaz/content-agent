@@ -55,20 +55,50 @@ class IdeaWorkflow:
         research: List[Dict[str, Any]],
         limit: int,
     ) -> List[Dict[str, Any]]:
-        """Generate demo ideas without LLM."""
+        """Generate demo ideas without LLM - using research patterns."""
         interests = profile.get("interests", ["AI engineering"])
         pillars = profile.get("content_pillars", ["technical insights"])
         
+        # Separate creator posts from other research
+        creator_posts = [r for r in research if r.get("source_type") == "creator_post"]
+        other_research = [r for r in research if r.get("source_type") != "creator_post"]
+        
         ideas = []
         
-        # Create ideas from research items
-        for i, item in enumerate(research[:limit]):
-            topic = item.get("topics", [interests[0]])[0] if item.get("topics") else interests[0]
+        # Priority 1: Create ideas inspired by creator posts (patterns, not copies)
+        for post in creator_posts[:limit]:
+            topics = post.get("topics", [])
+            topic = topics[0] if topics else "AI engineering"
+            content = post.get("content", "")
+            creator = post.get("metadata", {}).get("creator", "unknown")
+            
+            # Extract pattern from the post, generate original angle
+            idea = {
+                "title": f"The {topic} Tradeoff: What Most Engineers Miss",
+                "hook": f"Everyone talks about {topic.lower()}, but few mention this critical constraint...",
+                "angle": f"Contrarian take based on industry patterns observed from @{creator}",
+                "content_pillar": next((p for p in pillars if p.lower() in topic.lower()), pillars[0]),
+                "supporting_knowledge": [],
+                "supporting_research": [post.get("url", "")] if post.get("url") else [],
+                "confidence": min(0.95, post.get("relevance_score", 0.8) + 0.1),
+                "format": self._suggest_format(post),
+                "why_now": f"Active discussion in the AI engineering community about {topic.lower()}",
+                "why_fits_brand": f"Aligns with your focus on {topic} and {pillars[0]}",
+                "sources": [post],
+                "inspired_by_pattern": True,
+            }
+            ideas.append(idea)
+        
+        # Priority 2: Create ideas from other research
+        remaining = limit - len(ideas)
+        for item in other_research[:remaining]:
+            topics = item.get("topics", [])
+            topic = topics[0] if topics else interests[0]
             
             idea = {
-                "title": f"Building {topic} Systems: Lessons from {item.get('title', 'Recent Work')}",
-                "hook": f"Here's what I learned implementing {topic.lower()} in production...",
-                "angle": "Practical implementation lessons with concrete examples",
+                "title": f"{topic}: A Practical Framework for Production",
+                "hook": f"After evaluating multiple approaches to {topic.lower()}, here's what actually works...",
+                "angle": "Synthesis of recent developments with practical application",
                 "content_pillar": next((p for p in pillars if p.lower() in topic.lower()), pillars[0]),
                 "supporting_knowledge": [],
                 "supporting_research": [item.get("url", "")] if item.get("url") else [],
@@ -77,24 +107,6 @@ class IdeaWorkflow:
                 "why_now": f"Recent developments in {topic} make this timely",
                 "why_fits_brand": f"Aligns with your focus on {topic} and {pillars[0]}",
                 "sources": [item],
-            }
-            ideas.append(idea)
-        
-        # Fill remaining slots if needed
-        while len(ideas) < limit and interests:
-            topic = interests[len(ideas) % len(interests)]
-            idea = {
-                "title": f"My Approach to {topic}",
-                "hook": f"After working with {topic.lower()} for years, here's my framework...",
-                "angle": "Personal methodology and lessons learned",
-                "content_pillar": pillars[0] if pillars else "engineering insights",
-                "supporting_knowledge": [],
-                "supporting_research": [],
-                "confidence": 0.6,
-                "format": "lesson_learned",
-                "why_now": "Evergreen topic with consistent interest",
-                "why_fits_brand": f"Core to your expertise in {topic}",
-                "sources": [],
             }
             ideas.append(idea)
         

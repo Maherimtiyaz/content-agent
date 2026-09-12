@@ -129,11 +129,95 @@ class DuckDuckGoProvider(ResearchProvider):
             return []
 
 
+class LocalCreatorPostsProvider(ResearchProvider):
+    """Loads creator research from local JSONL files."""
+    
+    def __init__(self, data_dir: str = "data/creator_research"):
+        self.data_dir = Path(data_dir)
+    
+    def search(self, query: str, **kwargs) -> List[Dict[str, Any]]:
+        """Load all creator posts regardless of query (filtering happens later)."""
+        if not self.data_dir.exists():
+            print(f"[info] Creator research directory not found: {self.data_dir}")
+            return []
+        
+        items = []
+        files_found = 0
+        
+        for file_path in self.data_dir.glob("*.jsonl"):
+            files_found += 1
+            try:
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    for line_num, line in enumerate(f, 1):
+                        line = line.strip()
+                        if not line:
+                            continue
+                        try:
+                            data = json.loads(line)
+                            item = self._parse_post(data, str(file_path))
+                            if item:
+                                items.append(item)
+                        except json.JSONDecodeError:
+                            # Skip malformed lines
+                            continue
+            except Exception as e:
+                # Skip unreadable files
+                print(f"[warning] Could not read {file_path}: {e}")
+                continue
+        
+        if files_found > 0:
+            print(f"[info] Loaded {len(items)} creator posts from {files_found} file(s)")
+        else:
+            print(f"[info] No .jsonl files found in {self.data_dir}")
+        
+        return items
+    
+    def _parse_post(self, data: Dict[str, Any], source_file: str) -> Optional[Dict[str, Any]]:
+        content = data.get('content', '')
+        if not content:
+            return None
+        
+        creator = data.get('creator', 'unknown')
+        url = data.get('url', f'file://{source_file}')
+        published_at = data.get('published_at')
+        
+        # Extract topics from content or use provided
+        topics = data.get('topics', [])
+        if not topics and len(content) > 50:
+            # Simple heuristic: first sentence often contains topic
+            topics = [content.split('.')[0][:50]]
+        
+        return {
+            "title": f"Post by @{creator}",
+            "source": f"Creator: @{creator}",
+            "source_type": "creator_post",
+            "url": url,
+            "published_date": published_at,
+            "summary": content[:200],
+            "content": content,
+            "topics": topics,
+            "relevance_score": 0.9,  # High relevance since user selected these creators
+            "brand_fit_score": 0.85,
+            "content_potential": "high",
+            "metadata": {
+                'creator': creator,
+                'original_length': len(content),
+                'published_at': published_at
+            }
+        }
+
+
 class ResearchEngine:
     """Multi-source research engine."""
     
     def __init__(self, use_demo: bool = False):
         self.providers: List[ResearchProvider] = []
+        
+        # Always add LocalCreatorPostsProvider first (if directory exists)
+        try:
+            self.providers.append(LocalCreatorPostsProvider())
+        except Exception as e:
+            print(f"[warning] Could not initialize creator posts provider: {e}")
         
         if use_demo:
             self.providers.append(DemoProvider())

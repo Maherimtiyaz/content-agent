@@ -1,5 +1,11 @@
 """CLI entry point for Brand Engineer."""
 
+"""CLI entry point for Brand Engineer."""
+
+from dotenv import load_dotenv
+
+load_dotenv(".env", override=True)
+
 import typer
 from rich.console import Console
 from rich.table import Table

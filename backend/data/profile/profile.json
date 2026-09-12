@@ -29,5 +29,27 @@
     "motivational fluff",
     "engagement bait"
   ],
-  "goals": "Share engineering insights and help other developers learn"
+  "goals": "Share engineering insights and help other developers learn",
+  "creator_watchlist": [
+    "karpathy",
+    "swyx",
+    "hwchase17",
+    "_jasonwei",
+    "lateinteraction",
+    "rasbt",
+    "SebastianRaschka",
+    "DrJimFan",
+    "AnthropicAI",
+    "OpenAI"
+  ],
+  "content_mix": {
+    "technical_tips": 25,
+    "ai_news_analysis": 10,
+    "technical_explainers": 20,
+    "tools_and_workflows": 15,
+    "engineering_lessons": 15,
+    "opinions": 5,
+    "emerging_tech": 5,
+    "build_in_public": 5
+  }
 }

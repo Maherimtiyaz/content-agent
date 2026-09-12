@@ -1,0 +1,196 @@
+{
+  "timestamp": "20260912_090915",
+  "ideas": [
+    {
+      "title": "Building AI agents Systems: Lessons from Best Practices for AI Agent Architecture",
+      "hook": "Here's what I learned implementing ai agents in production...",
+      "angle": "Practical implementation lessons with concrete examples",
+      "content_pillar": "AI engineering",
+      "supporting_knowledge": [],
+      "supporting_research": [
+        "https://example.com/agent-architecture"
+      ],
+      "confidence": 0.92,
+      "format": "lesson_learned",
+      "why_now": "Recent developments in AI agents make this timely",
+      "why_fits_brand": "Aligns with your focus on AI agents and AI engineering",
+      "sources": [
+        {
+          "title": "Best Practices for AI Agent Architecture",
+          "source": "Engineering Blog",
+          "source_type": "technical_blog",
+          "url": "https://example.com/agent-architecture",
+          "published_date": "2024-01-14",
+          "summary": "Key patterns and anti-patterns in designing AI agent systems for production.",
+          "topics": [
+            "AI agents",
+            "software architecture",
+            "AI engineering"
+          ],
+          "relevance_score": 0.92,
+          "brand_fit_score": 0.88,
+          "content_potential": "high",
+          "discovered_at": "2026-09-11T08:21:25.555164",
+          "queried_topic": "AI engineering",
+          "key_points": [],
+          "credibility_score": 0.5,
+          "novelty_score": 0.5,
+          "technical_depth": "medium"
+        }
+      ]
+    },
+    {
+      "title": "Building RAG Systems: Lessons from RAG Performance Optimization Techniques",
+      "hook": "Here's what I learned implementing rag in production...",
+      "angle": "Practical implementation lessons with concrete examples",
+      "content_pillar": "AI engineering",
+      "supporting_knowledge": [],
+      "supporting_research": [
+        "https://arxiv.org/example/rag-opt"
+      ],
+      "confidence": 0.88,
+      "format": "technical_explanation",
+      "why_now": "Recent developments in RAG make this timely",
+      "why_fits_brand": "Aligns with your focus on RAG and AI engineering",
+      "sources": [
+        {
+          "title": "RAG Performance Optimization Techniques",
+          "source": "Research Paper",
+          "source_type": "paper",
+          "url": "https://arxiv.org/example/rag-opt",
+          "published_date": "2024-01-12",
+          "summary": "Novel approaches to improving retrieval-augmented generation latency and accuracy.",
+          "topics": [
+            "RAG",
+            "LLMs",
+            "performance"
+          ],
+          "relevance_score": 0.88,
+          "brand_fit_score": 0.82,
+          "content_potential": "high",
+          "discovered_at": "2026-09-11T08:21:25.555187",
+          "queried_topic": "LLMs",
+          "key_points": [],
+          "credibility_score": 0.5,
+          "novelty_score": 0.5,
+          "technical_depth": "medium"
+        }
+      ]
+    },
+    {
+      "title": "Building LLMs Systems: Lessons from New LLM Framework Released",
+      "hook": "Here's what I learned implementing llms in production...",
+      "angle": "Practical implementation lessons with concrete examples",
+      "content_pillar": "AI engineering",
+      "supporting_knowledge": [],
+      "supporting_research": [
+        "https://example.com/llm-framework"
+      ],
+      "confidence": 0.85,
+      "format": "lesson_learned",
+      "why_now": "Recent developments in LLMs make this timely",
+      "why_fits_brand": "Aligns with your focus on LLMs and AI engineering",
+      "sources": [
+        {
+          "title": "New LLM Framework Released",
+          "source": "Tech Blog",
+          "source_type": "blog",
+          "url": "https://example.com/llm-framework",
+          "published_date": "2024-01-15",
+          "summary": "A new framework for building LLM applications has been released with improved RAG capabilities.",
+          "topics": [
+            "LLMs",
+            "AI engineering",
+            "RAG"
+          ],
+          "relevance_score": 0.85,
+          "brand_fit_score": 0.8,
+          "content_potential": "high",
+          "discovered_at": "2026-09-11T08:21:25.555150",
+          "queried_topic": "AI engineering",
+          "key_points": [],
+          "credibility_score": 0.5,
+          "novelty_score": 0.5,
+          "technical_depth": "medium"
+        }
+      ]
+    },
+    {
+      "title": "Building MCP Systems: Lessons from MCP Protocol Gains Traction",
+      "hook": "Here's what I learned implementing mcp in production...",
+      "angle": "Practical implementation lessons with concrete examples",
+      "content_pillar": "AI engineering",
+      "supporting_knowledge": [],
+      "supporting_research": [
+        "https://github.com/example/mcp"
+      ],
+      "confidence": 0.78,
+      "format": "project_update",
+      "why_now": "Recent developments in MCP make this timely",
+      "why_fits_brand": "Aligns with your focus on MCP and AI engineering",
+      "sources": [
+        {
+          "title": "MCP Protocol Gains Traction",
+          "source": "GitHub Trends",
+          "source_type": "github",
+          "url": "https://github.com/example/mcp",
+          "published_date": "2024-01-13",
+          "summary": "Model Context Protocol sees rapid adoption among AI tool builders.",
+          "topics": [
+            "MCP",
+            "AI tools",
+            "developer tools"
+          ],
+          "relevance_score": 0.78,
+          "brand_fit_score": 0.75,
+          "content_potential": "medium",
+          "discovered_at": "2026-09-11T08:21:25.555168",
+          "queried_topic": "AI engineering",
+          "key_points": [],
+          "credibility_score": 0.5,
+          "novelty_score": 0.5,
+          "technical_depth": "medium"
+        }
+      ]
+    },
+    {
+      "title": "Building backend engineering Systems: Lessons from Backend Engineering Trends 2024",
+      "hook": "Here's what I learned implementing backend engineering in production...",
+      "angle": "Practical implementation lessons with concrete examples",
+      "content_pillar": "AI engineering",
+      "supporting_knowledge": [],
+      "supporting_research": [
+        "https://example.com/backend-trends"
+      ],
+      "confidence": 0.72,
+      "format": "short_post",
+      "why_now": "Recent developments in backend engineering make this timely",
+      "why_fits_brand": "Aligns with your focus on backend engineering and AI engineering",
+      "sources": [
+        {
+          "title": "Backend Engineering Trends 2024",
+          "source": "Industry Report",
+          "source_type": "report",
+          "url": "https://example.com/backend-trends",
+          "published_date": "2024-01-10",
+          "summary": "Survey of backend engineering practices and emerging technologies.",
+          "topics": [
+            "backend engineering",
+            "developer tools",
+            "trends"
+          ],
+          "relevance_score": 0.72,
+          "brand_fit_score": 0.7,
+          "content_potential": "medium",
+          "discovered_at": "2026-09-11T08:21:25.555176",
+          "queried_topic": "AI engineering",
+          "key_points": [],
+          "credibility_score": 0.5,
+          "novelty_score": 0.5,
+          "technical_depth": "medium"
+        }
+      ]
+    }
+  ],
+  "count": 5
+}

@@ -1,5 +1,3 @@
-"""AI-powered content idea generation workflow."""
-
 from typing import List, Dict, Any
 import json
 import os
@@ -281,6 +279,7 @@ class IdeaWorkflow:
 Source: {source}
 Title: {item.get("title", "Untitled")}
 Topics: {", ".join(item.get("topics", []))}
+URL: {item.get("url", "")}
 Content:
 {content}
 """
@@ -328,6 +327,10 @@ Requirements:
 9. The audience is software and AI engineers.
 10. The ideas should be technically specific enough that a strong
     draft can be written from them.
+11. Include the URL of every research item that directly supports
+    the idea in research_basis.
+12. research_basis must be a JSON array of URLs.
+13. confidence must be a number between 0.0 and 1.0.
 
 For each idea return:
 
@@ -408,7 +411,7 @@ Return ONLY a valid JSON array.
         self,
         response_text: str,
     ) -> List[Dict[str, Any]]:
-        """Parse an LLM JSON-array response."""
+        """Parse and normalize an LLM JSON-array response."""
 
         try:
             response_text = response_text.strip()
@@ -429,7 +432,7 @@ Return ONLY a valid JSON array.
             parsed = json.loads(response_text)
 
             if isinstance(parsed, list):
-                return parsed
+                return self._normalize_ideas(parsed)
 
         except json.JSONDecodeError:
             pass
@@ -444,12 +447,63 @@ Return ONLY a valid JSON array.
                 parsed = json.loads(json_str)
 
                 if isinstance(parsed, list):
-                    return parsed
+                    return self._normalize_ideas(parsed)
 
         except Exception:
             pass
 
         return []
+
+    def _normalize_ideas(
+        self,
+        ideas: List[Dict[str, Any]],
+    ) -> List[Dict[str, Any]]:
+        """Normalize LLM-generated ideas to the application schema."""
+
+        normalized = []
+
+        for idea in ideas:
+            if not isinstance(idea, dict):
+                continue
+
+            # The LLM currently returns `research_basis`.
+            # The rest of the application expects `supporting_research`.
+            research_basis = idea.get(
+                "research_basis",
+                idea.get("supporting_research", []),
+            )
+
+            if research_basis is None:
+                research_basis = []
+
+            if not isinstance(research_basis, list):
+                research_basis = [research_basis]
+
+            idea["supporting_research"] = research_basis
+
+            # Keep the original field too so we don't lose information.
+            idea["research_basis"] = research_basis
+
+            # Normalize confidence.
+            confidence = idea.get("confidence", 0.0)
+
+            try:
+                confidence = float(confidence)
+
+                # Handle models returning 8/9 instead of 0.8/0.9.
+                if confidence > 1:
+                    confidence = confidence / 10
+
+                confidence = max(0.0, min(1.0, confidence))
+
+            except (TypeError, ValueError):
+                confidence = 0.0
+
+            idea["confidence"] = confidence
+
+            normalized.append(idea)
+
+        return normalized
 
     def _match_pillar(
         self,
